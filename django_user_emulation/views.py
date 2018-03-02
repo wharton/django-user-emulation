@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.http import HttpResponseBadRequest
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponseBadRequest, HttpResponseNotFound
+from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic import View
 
 from django_user_emulation.helpers import login_user
@@ -12,19 +12,23 @@ class EmulateView(PermissionRequiredMixin, View):
     permission_required = 'is_superuser'
 
     def get(self, request, format=None):
-        user_id = request.GET.get('emulateUserId', None)
+        user_id = request.GET.get('emulate_user_id', None)
         return self.handle_emulate(request=request, user_id=user_id)
 
     def post(self, request, format=None):
-        user_id = request.POST.get('emulateUserId', None)
+        user_id = request.POST.get('emulate_user_id', None)
         return self.handle_emulate(request=request, user_id=user_id)
 
     def handle_emulate(self, request, user_id):
         try:
             user_id = int(user_id)
+            user = get_user_model().objects.get(pk=user_id)
         except ValueError:
             return HttpResponseBadRequest('Incorrect id value requested.')
-        user = get_object_or_404(get_user_model(), pk=user_id)
+        except ObjectDoesNotExist:
+            return HttpResponseNotFound('No User matches the given query.')
+        except Exception as e:
+            return HttpResponseBadRequest(e)
         return login_user(request, user)
 
 

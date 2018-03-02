@@ -29,15 +29,14 @@ def login_user(request, emulated_user):
 
     emulated_user.backend = settings.AUTHENTICATION_BACKENDS[0]
 
-    # Prevent update of emulated_user user last_login
-    signal_was_connected = user_logged_in.disconnect(update_last_login)
+    # we don't want login to trigger update of last login date
+    user_logged_in.disconnect(update_last_login)
 
     # Actually log user in
     login(request, emulated_user)
 
-    # Restore signal if needed
-    if signal_was_connected:
-        user_logged_in.connect(update_last_login)
+    # turn back on login signal to update last login
+    user_logged_in.connect(update_last_login)
 
     emulation_started.send(sender=None, logged_in_user_id=logged_in_user.pk,
                            emulated_user_id=emulated_user.pk, request=request)  # Send official, documented signal

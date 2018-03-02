@@ -28,14 +28,19 @@ Add it to your `INSTALLED_APPS`:
         ...
     )
 
-Add middleware processor
+Add middleware processor 'django_user_emulation.middleware.EmulationRemoteUserMiddleware',
+App must also include 3 middleware from django.contrib.auth.middleware 
+    AuthenticationMiddleware, RemoteUserMiddleware and SessionAuthenticationMiddleware
+django_user_emulation middleware must be between
+    'django.contrib.auth.middleware.AuthenticationMiddleware' and
+    'django.contrib.auth.middleware.RemoteUserMiddleware' 
 
 .. code-block:: python
 
     MIDDLEWARE_CLASSES = (
         ...
         'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django_user_emulation.middleware.emulationRemoteUserMiddleware',
+        'django_user_emulation.middleware.EmulationRemoteUserMiddleware',
         'django.contrib.auth.middleware.RemoteUserMiddleware',
         'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
         ...

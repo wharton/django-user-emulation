@@ -1,8 +1,8 @@
-class emulationRemoteUserMiddleware(object):
+class EmulationRemoteUserMiddleware(object):
     """
     Middleware for emulation RemoteUser. One must place this middleware between
     'django.contrib.auth.middleware.AuthenticationMiddleware' and
-    'django.contrib.auth.middleware.RemoteUserMiddleware' in MIDDLEWARE_CLASSES
+    'django.contrib.auth.middleware.RemoteUserMiddleware' in MIDDLEWARE_CLASSES or MIDDLEWARE v>1.10
 
     Just makes remote user same as emulated_user
     """

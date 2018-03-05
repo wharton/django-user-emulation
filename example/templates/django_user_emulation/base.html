@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>{% block title %}django-user-emulation{% endblock title %}</title>
+  <title>{% block title %}django-user-emulation demo app{% endblock title %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -20,6 +20,7 @@
   <!-- Your stuff: Third-party css libraries go here -->
 
   {% endblock %}
+  {% block extra_header_bottom %}{% endblock extra_header_bottom %}
 </head>
 
 <body>
@@ -27,7 +28,7 @@
 <div class="m-b">
   <nav class="navbar navbar-dark navbar-static-top bg-inverse">
     <div class="container">
-      <a class="navbar-brand" href="/">django-user-emulation</a>
+      <a class="navbar-brand" href="/">django-user-emulation home</a>
       <button type="button" class="navbar-toggler hidden-sm-up pull-xs-right" data-toggle="collapse"
               data-target="#bs-navbar-collapse-1">
         &#9776;
@@ -38,6 +39,7 @@
         <ul class="nav navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
+            <a class="nav-link" href="{% url 'emulation:emulate' %}">Emulate User</a>
           </li>
         </ul>
       </div>
@@ -83,6 +85,7 @@
 <!-- Your stuff: Third-party javascript libraries go here -->
 
 {% endblock javascript %}
+{% block extra_footer_js %}{% endblock extra_footer_js %}
 </body>
 </html>
 

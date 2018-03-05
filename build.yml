@@ -1,0 +1,21 @@
+---
+virtualenv:
+    name: "django_user_emulation"
+ 
+requirements:
+    file: "requirements_dev.txt"  
+ 
+collectstatic: true
+ 
+npm: false
+ 
+bower: false
+ 
+gulp: false
+ 
+apache_config:
+    hosted_location: "django_user_emulation"
+  
+arbitrary_command:
+    command: ['python', '--version']
+    options: {'stdout' : 'subprocess.PIPE'}

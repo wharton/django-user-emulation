@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block extra_header_bottom %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style type="text/css">
+    .ui-autocomplete-input {
+        width: 400px;
+    }
+    .ui-autocomplete {
+        max-height: 216px;
+        overflow-y: auto;
+    }
+</style>
+{% endblock extra_header_bottom %}
+
+{% block content %}
+    <main id="content" class="main" role="main">
+        <h2 class="visuallyhidden">Emulate User</h2>
+        <div class="container">
+            <div class="row">
+                {% block inner_content %}
+                <div id="emulate">
+                <form method="post" action="{% url 'emulation:emulate-start' %}">
+                    {% csrf_token %}
+                        <table>
+                        {{ form }}
+                        </table>
+                        <input type="hidden" name="next" value="{% url 'home' %}" />
+                        <input type="submit" value="Submit" />
+                    </form>
+                </div>
+                {% endblock inner_content %}
+            </div>
+        </div>
+    </main>
+
+{% endblock content %}
+
+{% block extra_footer_js %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+    $( function() {
+     
+        $( "#id_emulate_user_name" ).autocomplete({
+          source: "{% url 'home' %}api/autocomplete/user",
+          minLength: 2,
+          select: function( event, ui ) {
+            $( "#id_emulate_user_id" ).val( ui.item.user_id );
+            $( "#id_emulate_user_name" ).val( ui.item.value );
+            return false;
+            }
+        });
+  } );
+</script>
+{% endblock extra_footer_js %}

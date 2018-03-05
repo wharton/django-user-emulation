@@ -14,25 +14,23 @@
 {% endblock extra_header_bottom %}
 
 {% block content %}
-    <main id="content" class="main" role="main">
-        <h2 class="visuallyhidden">Emulate User</h2>
-        <div class="container">
-            <div class="row">
-                {% block inner_content %}
-                <div id="emulate">
-                <form method="post" action="{% url 'emulation:emulate-start' %}">
-                    {% csrf_token %}
-                        <table>
-                        {{ form }}
-                        </table>
-                        <input type="hidden" name="next" value="{% url 'home' %}" />
-                        <input type="submit" value="Submit" />
-                    </form>
-                </div>
-                {% endblock inner_content %}
+    
+    <h2 class="visuallyhidden">Emulate User</h2>
+    <div class="container">
+        <div class="row">
+            {% block inner_content %}
+            <div id="emulate">
+            <form method="post" action="{% url 'emulation:emulate-start' %}">
+                {% csrf_token %}
+                    <table>
+                    {{ form }}
+                    </table>
+                    <input type="hidden" name="next" value="{% url 'example:home' %}" />
+                    <input type="submit" value="Submit" />
+                </form>
             </div>
+            {% endblock inner_content %}
         </div>
-    </main>
 
 {% endblock content %}
 
@@ -42,10 +40,10 @@
     $( function() {
      
         $( "#id_emulate_user_name" ).autocomplete({
-          source: "{% url 'home' %}api/autocomplete/user",
+          source: "{% url 'example:autocomplete-users' %}",
           minLength: 2,
           select: function( event, ui ) {
-            $( "#id_emulate_user_id" ).val( ui.item.user_id );
+            $( "#id_emulate_user_id" ).val( ui.item.id );
             $( "#id_emulate_user_name" ).val( ui.item.value );
             return false;
             }

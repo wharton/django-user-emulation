@@ -5,7 +5,7 @@ from django.contrib.auth.models import AnonymousUser
 from django_user_emulation.middleware import EmulationRemoteUserMiddleware
 
 
-class AnalyiticsMiddlewareTests(TestCase):
+class EmulationMiddlewareTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.client.login(username=self.superuser.username, password='You shall not pass')

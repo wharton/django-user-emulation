@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	  <h2>Home</h2>
+	  <div class="row">
+	    {% if user.is_authenticated %}
+		    {% if is_emulating %}
+		    <p>you are now emulating {{ user.username }}.</p>
+		    {% else %}
+	      	<p>Hi {{ user.username }}! Try emulating a user from the menu. Make sure you've created another user in the db first!</p>
+	      	{% endif %}
+	    {% else %}
+	    	<p>Doesn't look like you've logged in yet. Login from nav menu.</p>
+	    {% endif %}
+	  </div>
+{% endblock %}

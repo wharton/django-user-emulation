@@ -1,4 +1,4 @@
 
 # Additional requirements go here
 Django==1.11.8
-pytz==2018.3
+pytz==2015.7

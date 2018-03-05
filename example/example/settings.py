@@ -24,7 +24,7 @@ SECRET_KEY = "+1rlxi5-wi=&p@uog9vj15&+h5r$ccdano^w%7_^e8offtnsze"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -35,8 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'django_user_emulation',
+    'app'
 
     # if your app has other dependencies that need to be added to the site
     # they should be added here
@@ -48,6 +48,8 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_user_emulation.middleware.EmulationRemoteUserMiddleware',  # here
+    'django.contrib.auth.middleware.RemoteUserMiddleware',  # here
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -66,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "django_user_emulation.context_processors.emulation",  # here
             ],
         },
     },
@@ -118,3 +121,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static_dev"),
+)
+
+LOGIN_REDIRECT_URL = '/'

@@ -21,6 +21,6 @@ Add django-user-emulation's URL patterns:
 
     urlpatterns = [
         ...
-        url(r'^', include(django_user_emulation_urls)),
+        path('', include(django_user_emulation_urls)),
         ...
     ]

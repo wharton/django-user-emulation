@@ -20,13 +20,13 @@ Add it to your `INSTALLED_APPS`:
 
 .. code-block:: python
 
-    INSTALLED_APPS = (
+    INSTALLED_APPS = [
         ...
         'django.contrib.auth',
         ...
         'django_user_emulation.apps.DjangoUserEmulationConfig',
         ...
-    )
+    ]
 
 Add middleware processor 'django_user_emulation.middleware.EmulationRemoteUserMiddleware',
 App must also include 3 middleware from django.contrib.auth.middleware 
@@ -37,14 +37,13 @@ django_user_emulation middleware must be between
 
 .. code-block:: python
 
-    MIDDLEWARE_CLASSES = (
+    MIDDLEWARE = [
         ...
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django_user_emulation.middleware.EmulationRemoteUserMiddleware',
         'django.contrib.auth.middleware.RemoteUserMiddleware',
-        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
         ...
-    )
+    ]
 
 Add context processor
 
@@ -74,7 +73,7 @@ Add django-user-emulation's URL patterns:
 
     urlpatterns = [
         ...
-        url(r'^', include(django_user_emulation_urls)),
+        path('', include(django_user_emulation_urls)),
         ...
     ]
 

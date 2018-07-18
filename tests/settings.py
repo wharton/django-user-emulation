@@ -28,10 +28,7 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
-if django.VERSION >= (1, 10):
-    MIDDLEWARE = (
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-    )
-else:
-    MIDDLEWARE_CLASSES = ()
+MIDDLEWARE = [
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+]

@@ -29,11 +29,12 @@ Add it to your `INSTALLED_APPS`:
     ]
 
 Add middleware processor 'django_user_emulation.middleware.EmulationRemoteUserMiddleware',
-App must also include 3 middleware from django.contrib.auth.middleware 
-    AuthenticationMiddleware, RemoteUserMiddleware and SessionAuthenticationMiddleware
+App must also include middleware from django.contrib.auth.middleware 
+    AuthenticationMiddleware, RemoteUserMiddleware or your custom remote user middleware (such as shibboleth)
 django_user_emulation middleware must be between
     'django.contrib.auth.middleware.AuthenticationMiddleware' and
     'django.contrib.auth.middleware.RemoteUserMiddleware' 
+because it overrides the REMOTE_USER request header which sets the user in RemoteUserMiddleware
 
 .. code-block:: python
 

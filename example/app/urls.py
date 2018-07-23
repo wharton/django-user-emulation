@@ -6,7 +6,7 @@ from app import views
 
 
 urlpatterns = [
-    path('$', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('login/$', auth_views.login,
          {'template_name': 'login.html'}, name='login'),
     path('logout/$', auth_views.logout,

@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django_user_emulation.middleware.EmulationRemoteUserMiddleware',  # here
+    'django.contrib.auth.middleware.RemoteUserMiddleware',  # here
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]

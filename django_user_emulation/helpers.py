@@ -47,7 +47,7 @@ def login_user(request, emulated_user):
 
 
 def redirect_to_next(request):
-    redirect_to = request.POST.get('next', request.GET.get('next', '/'))
+    redirect_to = request.POST.get('next', request.GET.get('next', request.META.get('SCRIPT_NAME', '/')))
     if not is_safe_url(redirect_to):
         redirect_to = '/'
     return HttpResponseRedirect(redirect_to)

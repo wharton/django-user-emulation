@@ -64,5 +64,10 @@ class TestDjango_user_emulation(TestCase):
         self.assertEqual(result.status_code, 302)
         self.assertEqual(result.url, "None")
 
+    def test_redirect_to_next_no_next_param_use_alias(self):
+        request = self.factory.get('/yum')
+        request.META['SCRIPT_NAME'] = '/apache'
+        self.assertEqual(redirect_to_next(request).url, '/apache')
+
     def tearDown(self):
         pass

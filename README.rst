@@ -14,7 +14,7 @@ Quickstart
 
 Install django-user-emulation::
 
-    pip install git+https://github.com/wharton/django-user-emulation.git
+    pip install git+https://github.com/wharton/django-user-emulation.git@django_2
 
 Add it to your `INSTALLED_APPS`:
 

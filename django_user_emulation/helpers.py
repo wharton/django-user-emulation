@@ -4,7 +4,7 @@ from django.contrib.auth.signals import user_logged_in
 from django.contrib.auth import login, get_user_model
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme
 
 from django_user_emulation.signals import emulation_started, emulation_ended
 
@@ -48,6 +48,8 @@ def login_user(request, emulated_user):
 
 def redirect_to_next(request):
     redirect_to = request.POST.get('next', request.GET.get('next', request.META.get('SCRIPT_NAME', '/')))
-    if not is_safe_url(redirect_to):
+
+    if not url_has_allowed_host_and_scheme(redirect_to, settings.ALLOWED_HOSTS, require_https=True):
         redirect_to = '/'
+
     return HttpResponseRedirect(redirect_to)

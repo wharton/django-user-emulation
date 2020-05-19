@@ -1,4 +1,1 @@
-
-# Additional requirements go here
-Django>2.0.10,<2.1
-pytz==2015.7
+Django >= 3.0.0

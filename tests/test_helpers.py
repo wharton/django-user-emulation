@@ -1,8 +1,10 @@
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory, override_settings
 from django.contrib.auth import get_user_model
 from django.contrib.sessions.middleware import SessionMiddleware
 
 from django_user_emulation.helpers import end_emulation, login_user, redirect_to_next
+
+from unittest import mock
 
 
 class TestDjango_user_emulation(TestCase):
@@ -57,16 +59,33 @@ class TestDjango_user_emulation(TestCase):
         self.assertEqual(result.status_code, 302)
         self.assertEqual(result.url, "/")
 
-    def test_redirect_to_next_none_next(self):
-        # post/get request turns next None to text 'None' which is apparently valid
-        request = self.factory.get('/blah', {'next': None})
-        result = redirect_to_next(request)
-        self.assertEqual(result.status_code, 302)
-        self.assertEqual(result.url, "None")
-
     def test_redirect_to_next_no_next_param_use_alias(self):
         request = self.factory.get('/yum')
         request.META['SCRIPT_NAME'] = '/apache'
+        self.assertEqual(redirect_to_next(request).url, '/apache')
+
+    def test_redirect_to_next_url_expected_args(self):
+        request = self.factory.get('https://karen.com/get_stuff')
+
+        with mock.patch('django_user_emulation.helpers.url_has_allowed_host_and_scheme', return_value=False) as _spy_url_scheme:
+            redirect_to_next(request)
+            _spy_url_scheme.assert_called_once_with('', ['*', 'testserver'], require_https=True)
+
+    @override_settings(ALLOWED_HOSTS=['bob.com'])
+    def test_redirect_to_next_url_is_not_valid_against_allowed_hosts(self):
+        request = self.factory.get('https://karen.com/get_stuff')
+
+        self.assertEqual(redirect_to_next(request).url, '/')
+
+    def test_redirect_to_next_url_is_not_safe(self):
+        request = self.factory.get('http://not.secured.com/yum')
+
+        self.assertEqual(redirect_to_next(request).url, '/')
+
+    def test_redirect_to_next_url_is_safe(self):
+        request = self.factory.get('https://so.good/yum')
+        request.META['SCRIPT_NAME'] = '/apache'
+
         self.assertEqual(redirect_to_next(request).url, '/apache')
 
     def tearDown(self):

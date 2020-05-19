@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.test import SimpleTestCase, TestCase, RequestFactory, Client, override_settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
-from mock import patch, Mock, MagicMock
+from unittest.mock import patch, Mock, MagicMock
 
 
 from django_user_emulation.middleware import EmulationRemoteUserMiddleware

@@ -20,7 +20,7 @@ class EmulationViewTests(TestCase):
         self.client.login(username=self.superuser.username, password='you shall not pass')
         client_user = get_user(self.client)
         self.assertEqual(client_user, self.superuser)
-        self.assertTrue(client_user.is_authenticated())
+        self.assertTrue(client_user.is_authenticated)
 
     @classmethod
     def setUpTestData(cls):

@@ -4,4 +4,4 @@
 # Your app in editable mode.
 -e ../
 
-git+https://github.com/wharton/django-user-emulation.git
+git+https://github.com/wharton/django-user-emulation.git@django_v2.2

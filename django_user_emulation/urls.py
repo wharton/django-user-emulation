@@ -1,7 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 from django_user_emulation import views
 
+app_name = "emulation"
+
 urlpatterns = [
-    url(r'^start$', views.EmulateView.as_view(), name='emulate-start'),
-    url(r'^end$', views.EmulateEndView.as_view(), name='emulate-end'),
+    path('start/', views.EmulateView.as_view(), name='emulate-start'),
+    path('end/', views.EmulateEndView.as_view(), name='emulate-end'),
 ]

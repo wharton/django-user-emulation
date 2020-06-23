@@ -14,37 +14,37 @@ Quickstart
 
 Install django-user-emulation::
 
-    pip install git+https://github.com/wharton/django-user-emulation.git
+    pip install git+https://github.com/wharton/django-user-emulation.git@django_v2.2
 
 Add it to your `INSTALLED_APPS`:
 
 .. code-block:: python
 
-    INSTALLED_APPS = (
+    INSTALLED_APPS = [
         ...
         'django.contrib.auth',
         ...
         'django_user_emulation.apps.DjangoUserEmulationConfig',
         ...
-    )
+    ]
 
 Add middleware processor 'django_user_emulation.middleware.EmulationRemoteUserMiddleware',
-App must also include 3 middleware from django.contrib.auth.middleware 
-    AuthenticationMiddleware, RemoteUserMiddleware and SessionAuthenticationMiddleware
+App must also include middleware from django.contrib.auth.middleware 
+    AuthenticationMiddleware, RemoteUserMiddleware or your custom remote user middleware (such as shibboleth)
 django_user_emulation middleware must be between
     'django.contrib.auth.middleware.AuthenticationMiddleware' and
     'django.contrib.auth.middleware.RemoteUserMiddleware' 
+because it overrides the REMOTE_USER request header which sets the user in RemoteUserMiddleware
 
 .. code-block:: python
 
-    MIDDLEWARE_CLASSES = (
+    MIDDLEWARE = [
         ...
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django_user_emulation.middleware.EmulationRemoteUserMiddleware',
         'django.contrib.auth.middleware.RemoteUserMiddleware',
-        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
         ...
-    )
+    ]
 
 Add context processor
 
@@ -74,7 +74,7 @@ Add django-user-emulation's URL patterns:
 
     urlpatterns = [
         ...
-        url(r'^', include(django_user_emulation_urls)),
+        path('', include(django_user_emulation_urls)),
         ...
     ]
 

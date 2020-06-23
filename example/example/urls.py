@@ -1,9 +1,9 @@
-from django.conf.urls import url, include
+from django.urls import path, include
 from django.contrib import admin
 
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^', include('app.urls', namespace='example')),
-    url(r'^', include('django_user_emulation.urls', namespace='emulation')),
+    path('admin/', admin.site.urls),
+    path('', include('app.urls', namespace='example')),
+    path('', include('django_user_emulation.urls', namespace='emulation')),
 ]

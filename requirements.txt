@@ -1,4 +1,4 @@
 
 # Additional requirements go here
-Django>2.0.10,<2.1
+django>=2.2.24,<3.0
 pytz==2015.7

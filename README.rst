@@ -1,8 +1,24 @@
-=============================
-django-user-emulation
-=============================
-
+=====================
+DEPRECATED: django-user-emulation
+=====================
 Installable app enabling emulation of another user
+
+.. important::
+
+   This project is no longer maintained. The repository will remain available in a read-only mode, but we are no longer accepting pull requests or addressing issues.
+
+What This Means
+===============
+
+- The code is provided *as-is*, and can still be used and forked, but is no longer being actively developed.
+- We will not be adding new features, fixing non-critical bugs, or responding to questions.
+- No additional releases will be made.
+
+Archive Notice
+==============
+
+On 11/13/2023, this project was officially archived. For historical purposes, the source is still available, but we encourage you to find alternatives that support recent updates and active development.
+
 
 Documentation
 -------------
